@@ -1,51 +1,30 @@
 
 var pomoTime,
     timer_id;
-// var ring = false;
-
-// var audioElement = document.createElement('audio');
-
-// audioElement.setAttribute('src', 
-//                           'audio/alarm-clock-1.mp3');
-
-// audioElement.setAttribute('loop', 
-//                            true);
 
 
-// Start a new timer
+
+// Stop the timer
+function timerStop (){
+  clearInterval(timer_id);
+  $('#info').slideDown(); 
+}
+
+
+
+// Sets the global timer in milliseconds
 function setPomodoro(minTime){
-  // Sets the global timer in milliseconds
+  //timerStop();
   pomoTime = minTime * 60 * 1000;
   timerRun();
 }
 
 // Start the timer
 function timerRun(){
-  // timerStop();
-  timer_id = setInterval('pomo()', 10);
+  clearInterval(timer_id);
+  timer_id = setInterval('pomo()', 100);
   $('#info').slideUp();
 }
-
-// Stop the timer
-function timerStop (){
-  clearInterval(timer_id);
-  $('#info').slideDown(); 
-  // alert('stop');
-  // ringBell();
-}
-
-
-
-// function stopBell(){
-//   audioElement.pause();
-// }
-
-// function ringBell(){
-//   $('audio').remove();
-//   $('body').append('<audio src="audio/alarm-clock-1.mp3" autostart="true" hidden="true" loop="false">');
-// }
-
-
 
 
 
@@ -60,19 +39,12 @@ function timerStop (){
 function pomo(){
 
   if(pomoTime>0)
-    pomoTime-= 10;
+    pomoTime-= 100;
   else {
     //pomoTime=0;
     timerStop();
   }
     
-  // if(pomoTime==0 && ring == false){
-  //    ringBell();
-  //    ring = true;
-  // } else {
-  //   // stopBell();
-  // }
-
   // To convert the time
   var myTime = pomoTime;
 
@@ -125,12 +97,16 @@ $(document).ready(function() {
     setPomodoro(5);  
   });
 
+
   // to stop the timer
   $('#stop').click(function() {
-      // //clearTimeout(timer_id);
-      // clearInterval(timer_id);
-      // $('#info').slideDown();
-      timerStop();
+    timerStop();
+  });
+
+
+  // to stop the timer
+  $('#start').click(function() {
+    timerRun();
   });
 
   // only for testing
