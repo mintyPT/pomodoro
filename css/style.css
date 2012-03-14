@@ -47,3 +47,11 @@ hgroup{
 .row h3{
   color: #e47a80;
 }
+
+
+.gitribbon {
+  position: absolute; 
+  top: 0; 
+  right: 0; 
+  border: 0;
+}
