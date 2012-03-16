@@ -27,7 +27,6 @@ function timerStop (){
 
 
 
-
 function log(str){
   var currentTime = new Date()
   var hours = currentTime.getHours()
