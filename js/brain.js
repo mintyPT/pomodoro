@@ -1,22 +1,63 @@
 
 var pomoTime,
-    timer_id;
+    timer_id,
+    pomoType;
 
 
+// Function to pause the timer
+function timerPause(){
+  clearInterval(timer_id);
+  log('You can\'t pause an adventure!');
+  $('#info').slideDown(); 
+}
 
 // Stop the timer
 function timerStop (){
   clearInterval(timer_id);
+  log('Pomodoro of ' +pomoType + ' minutes ended');
   $('#info').slideDown(); 
+  playSound();
 }
 
 
 
-// Sets the global timer in milliseconds
+
+
+
+
+
+
+
+function log(str){
+  var currentTime = new Date()
+  var hours = currentTime.getHours()
+  var minutes = currentTime.getMinutes()
+
+  if (minutes < 10)
+    minutes = "0" + minutes;
+
+  $('#log').slideDown();
+  $('div#log ul').append('<li><b>' + hours + ':' + minutes +':</b> ' + str + '</li>');
+}
+
+
+// Play a sound
+function playSound() {
+  $('embed').remove();
+  $('body').append('<embed src="audio/whip.mp3" autostart="true" hidden="true" loop="false">');
+}
+
+
+
+
+
+
+// Sets a new pomodoro
 function setPomodoro(minTime){
-  //timerStop();
+  pomoType = minTime;
   pomoTime = minTime * 60 * 1000;
   timerRun();
+  log('Pomodoro of ' +pomoType + ' minutes started');
 }
 
 // Start the timer
@@ -40,10 +81,8 @@ function pomo(){
 
   if(pomoTime>0)
     pomoTime-= 100;
-  else {
-    //pomoTime=0;
+  else 
     timerStop();
-  }
     
   // To convert the time
   var myTime = pomoTime;
@@ -100,24 +139,36 @@ $(document).ready(function() {
 
   // to stop the timer
   $('#stop').click(function() {
-    timerStop();
+    timerPause();
   });
 
 
-  // to stop the timer
+
   $('#start').click(function() {
+    log('The adventure must go on!');
     timerRun();
   });
 
-  // only for testing
-  $('#pl').click(function()  { 
-    setPomodoro(0.02);  
-  });
 
-  // only for testing
-  $('#st').click(function() { 
-    stopBell(); 
-  });
+
+  // o
+
+
+  $('#text').on('click', function(){
+    // $('#log').show();
+    // log('on');
+    // playSound();
+    setPomodoro(0.02);  
+  })
+
+
+
+
+
+
+  $('#info').hide(); 
+  $('#info').slideDown(); 
+  $('#log').hide();
 
 });
 
